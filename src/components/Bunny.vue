@@ -102,7 +102,7 @@ export default {
         flow = new Flow( objectToCurve );
         flow.updateCurve( 0, curve );
         flowList.push(flow);
-        flowSpeed.push((Math.random() * 5 + 0.5) * 1/90/l);
+        flowSpeed.push((Math.random() * 3 + 0.5) * 1/90/l);
         scene.add( flow.object3D );
         if (flowSpeed.length == loops.length){
           me.loadingDone = true;
