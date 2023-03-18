@@ -21,6 +21,7 @@ import loops2 from '../assets/loops2.json'
 import loops3 from '../assets/loops3.json'
 import loops4 from '../assets/loops4.json'
 import loops5 from '../assets/loops5.json'
+import loops6 from '../assets/loops6.json'
 import colors from "../assets/colors.json"
 
 var chosen_color = colors[Math.floor(Math.random() * colors.length)];
@@ -28,8 +29,8 @@ var choice = Math.floor(Math.random() * 2);
 var bg_color = "#"+chosen_color[choice];
 var line_color = "#"+chosen_color[(choice + 1 ) % 2];
 // console.log(line_color);
-var all_loops = [loops0, loops1, loops2, loops3, loops4, loops5];
-var chosen_loop = Math.floor(Math.random() * 6);
+var all_loops = [loops0, loops1, loops2, loops3, loops4, loops5, loops6];
+var chosen_loop = Math.floor(Math.random() * 7);
 
 const loops = all_loops[chosen_loop];
 
