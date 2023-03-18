@@ -97,12 +97,12 @@ export default {
           bevelEnabled: false,
         } );
 
-        geometry.rotateX( Math.random() * Math.PI);
+        geometry.rotateX( 2 * Math.random() * Math.PI);
         const objectToCurve = new THREE.Mesh(geometry, me.text_material );
         flow = new Flow( objectToCurve );
         flow.updateCurve( 0, curve );
         flowList.push(flow);
-        flowSpeed.push(1/60/l);
+        flowSpeed.push((Math.random() * 5 + 0.5) * 1/90/l);
         scene.add( flow.object3D );
         if (flowSpeed.length == loops.length){
           me.loadingDone = true;
