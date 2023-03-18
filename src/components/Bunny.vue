@@ -11,7 +11,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Flow } from 'three/addons/modifiers/CurveModifier.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js'
-// var canvasBgColor = { r: 196, g: 238, b: 142, a: 1 };
+
 export default {
   name: "Bunny",
   data() {
@@ -25,7 +25,7 @@ export default {
       this.controls.update();
       if (this.flow){
         // console.log("has flow");
-        this.flow.moveAlongCurve(0, 0.1);
+        this.flow.moveAlongCurve(.01);
       }
       this.renderer.render(this.scene, this.camera);
     },
@@ -65,7 +65,7 @@ export default {
       curve.closed = true;
 
       // Define a geometry for the curve
-      const curveGeometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(360));
+      const curveGeometry = new THREE.BufferGeometry().setFromPoints(curve.getPoints(80));
 
       // Define a material for the curve
       const curveMaterial = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
@@ -100,19 +100,15 @@ export default {
 
         const objectToCurve = new THREE.Mesh( geometry, material );
 
-        me.flow = new Flow( objectToCurve );
-        me.flow.updateCurve( 0, curve );
-        me.scene.add( me.flow.object3D );
-        me.flow.moveAlongCurve(0.5)
-
-    } );
-
-    this.animate();
+        me.flow = new Flow(objectToCurve);
+        me.flow.updateCurve(0, curve);
+        me.scene.add(me.flow.object3D);
+      });
     }
   },
   mounted() {
     this.init();
-    // console.log("here");
+    this.animate();
   },
 };
 </script>
