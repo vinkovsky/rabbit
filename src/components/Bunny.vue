@@ -15,13 +15,7 @@ import { Flow } from 'three/addons/modifiers/CurveModifier.js';
 import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import loops0 from '../assets/loops0.json'
-import loops1 from '../assets/loops1.json'
-import loops2 from '../assets/loops2.json'
-import loops3 from '../assets/loops3.json'
-import loops4 from '../assets/loops4.json'
-import loops5 from '../assets/loops5.json'
-import loops6 from '../assets/loops6.json'
+import all_loops from '../assets/loops.json'
 import colors from "../assets/colors.json"
 
 var chosen_color = colors[Math.floor(Math.random() * colors.length)];
@@ -29,8 +23,7 @@ var choice = Math.floor(Math.random() * 2);
 var bg_color = "#"+chosen_color[choice];
 var line_color = "#"+chosen_color[(choice + 1 ) % 2];
 // console.log(line_color);
-var all_loops = [loops0, loops1, loops2, loops3, loops4, loops5, loops6];
-var chosen_loop = Math.floor(Math.random() * 7);
+var chosen_loop = Math.floor(Math.random() * all_loops.length);
 
 const loops = all_loops[chosen_loop];
 
