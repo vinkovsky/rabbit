@@ -78,36 +78,44 @@ export default {
           var p = loops[ind][j];
           loop_points.push(new THREE.Vector3(p[0], p[1], p[2]));
         }
-        // this is one loop
-        var curve = new THREE.CatmullRomCurve3(loop_points);
-        curve.curveType = 'centripetal';
-        curve.closed = true;
+        if (loop_points.length > 2){
+          // this is one loop
+          var curve = new THREE.CatmullRomCurve3(loop_points);
+          curve.curveType = 'centripetal';
+          curve.closed = true;
 
-        // compute font size and repeat times
-        var l = me.computeLength(loop_points);
-        var font_size = Math.random() * (MAX_FONT_SIZE - MIN_FONT_SIZE) + MIN_FONT_SIZE;
-        var repeat_time = Math.floor(l / (me.line_size * font_size));
-        
-        var damping_repeat = Math.random() * 0.8 + 0.2;
-        const geometry = new TextGeometry( text.repeat(Math.ceil(repeat_time * damping_repeat)), {
-          font: font,
-          size: font_size,
-          height: 0.00000001,
-          curveSegments: 12,
-          bevelEnabled: false,
-        } );
+          // compute font size and repeat times
+          var l = me.computeLength(loop_points);
+          var font_size = Math.random() * (MAX_FONT_SIZE - MIN_FONT_SIZE) + MIN_FONT_SIZE;
+          var repeat_time = Math.floor(l / (me.line_size * font_size));
+          
+          while (repeat_time < 1 && l>0){
+            font_size = font_size * 0.8;
+            repeat_time = Math.floor(l / (me.line_size * font_size));
+            // console.log(l, repeat_time);
+          }
+          
+          var damping_repeat = Math.random() * 0.8 + 0.2;
+          const geometry = new TextGeometry( text.repeat(Math.ceil(repeat_time * damping_repeat)), {
+            font: font,
+            size: font_size,
+            height: 0.00000001,
+            curveSegments: 12,
+            bevelEnabled: false,
+          } );
 
-        geometry.rotateX( 2 * Math.random() * Math.PI);
-        const objectToCurve = new THREE.Mesh(geometry, me.text_material );
-        flow = new Flow( objectToCurve );
-        flow.updateCurve( 0, curve );
-        flowList.push(flow);
-        flowSpeed.push((Math.random() * 3 + 0.5) * 1/90/l);
-        scene.add( flow.object3D );
-        if (flowSpeed.length == loops.length){
-          me.loadingDone = true;
-          console.log("LOADING DONE");
-          me.loading_text = "";
+          geometry.rotateX( 2 * Math.random() * Math.PI);
+          const objectToCurve = new THREE.Mesh(geometry, me.text_material );
+          flow = new Flow( objectToCurve );
+          flow.updateCurve( 0, curve );
+          flowList.push(flow);
+          flowSpeed.push((Math.random() * 3 + 0.5) * 1/90/l);
+          scene.add( flow.object3D );
+          if (ind == loops.length - 1){
+            me.loadingDone = true;
+            console.log("LOADING DONE");
+            me.loading_text = "";
+          }
         }
       });
     },
